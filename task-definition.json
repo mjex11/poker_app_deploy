@@ -1,93 +1,93 @@
 {
-    "containerDefinitions": [
-        {
-            "name": "fluent-bit",
-            "image": "906394416424.dkr.ecr.ap-northeast-1.amazonaws.com/aws-for-fluent-bit:2.28.5",
-            "cpu": 256,
-            "memory": 512,
-            "memoryReservation": 50,
-            "portMappings": [],
-            "essential": true,
-            "environment": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "startTimeout": 30,
-            "stopTimeout": 120,
-            "user": "0",
-            "privileged": false,
-            "readonlyRootFilesystem": true,
-            "interactive": false,
-            "pseudoTerminal": false,
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-group": "/aws/ecs/one-ecs-service/fluent-bit",
-                    "awslogs-region": "ap-northeast-1",
-                    "awslogs-stream-prefix": "ecs"
-                }
-            },
-            "firelensConfiguration": {
-                "type": "fluentbit"
-            }
-        },
-        {
-            "name": "one-ecs",
-            "image": "981715094000.dkr.ecr.ap-northeast-1.amazonaws.com/one-ecs-ecr",
-            "cpu": 256,
-            "memory": 512,
-            "memoryReservation": 100,
-            "portMappings": [
-                {
-                    "name": "one-ecs",
-                    "containerPort": 3000,
-                    "hostPort": 3000,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "dependsOn": [
-                {
-                    "containerName": "fluent-bit",
-                    "condition": "START"
-                }
-            ],
-            "startTimeout": 30,
-            "stopTimeout": 120,
-            "privileged": false,
-            "readonlyRootFilesystem": false,
-            "interactive": false,
-            "pseudoTerminal": false,
-            "logConfiguration": {
-                "logDriver": "awsfirelens",
-                "options": {
-                    "delivery_stream": "my-stream",
-                    "log-driver-buffer-limit": "2097152",
-                    "region": "ap-northeast-1",
-                    "Name": "firehose"
-                }
-            }
+  "containerDefinitions": [
+    {
+      "name": "fluent-bit",
+      "image": "906394416424.dkr.ecr.ap-northeast-1.amazonaws.com/aws-for-fluent-bit:2.28.5",
+      "cpu": 256,
+      "memory": 512,
+      "memoryReservation": 50,
+      "portMappings": [],
+      "essential": true,
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "startTimeout": 30,
+      "stopTimeout": 120,
+      "user": "0",
+      "privileged": false,
+      "readonlyRootFilesystem": true,
+      "interactive": false,
+      "pseudoTerminal": false,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/one-ecs-service/fluent-bit",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "ecs"
         }
-    ],
-    "family": "one-ecs-service",
-    "executionRoleArn": "arn:aws:iam::981715094000:role/one-ecs-service-20230511144726556900000003",
-    "networkMode": "awsvpc",
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "cpu": "1024",
-    "memory": "2048",
-    "runtimePlatform": {
-        "cpuArchitecture": "X86_64",
-        "operatingSystemFamily": "LINUX"
+      },
+      "firelensConfiguration": {
+        "type": "fluentbit"
+      }
     },
-    "tags": [
+    {
+      "name": "one-ecs",
+      "image": "test113",
+      "cpu": 256,
+      "memory": 512,
+      "memoryReservation": 100,
+      "portMappings": [
         {
-            "key": "Project",
-            "value": "one-ecs"
-        },
-        {
-            "key": "ManagedBy",
-            "value": "Terraform"
+          "name": "one-ecs",
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
         }
-    ]
+      ],
+      "essential": true,
+      "dependsOn": [
+        {
+          "containerName": "fluent-bit",
+          "condition": "START"
+        }
+      ],
+      "startTimeout": 30,
+      "stopTimeout": 120,
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "interactive": false,
+      "pseudoTerminal": false,
+      "logConfiguration": {
+        "logDriver": "awsfirelens",
+        "options": {
+          "delivery_stream": "my-stream",
+          "log-driver-buffer-limit": "2097152",
+          "region": "ap-northeast-1",
+          "Name": "firehose"
+        }
+      }
+    }
+  ],
+  "family": "one-ecs-service",
+  "executionRoleArn": "arn:aws:iam::981715094000:role/one-ecs-service-20230511144726556900000003",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "tags": [
+    {
+      "key": "Project",
+      "value": "one-ecs"
+    },
+    {
+      "key": "ManagedBy",
+      "value": "Terraform"
+    }
+  ]
 }
