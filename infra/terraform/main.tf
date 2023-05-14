@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "github_actions" {
 }
 
 resource "aws_iam_policy" "ecs_deploy" {
-  name        = "ECSExcutionRole"
+  name        = "ECSExcutionForOneEcsRole"
   description = "Allows to deploy the service to the ECS cluster and update the task definition in the ECR"
 
   policy = jsonencode({

@@ -32,3 +32,10 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ignore pip packages
+app/lambda/deploy/*
+!app/lambda/deploy/lambda_function.py
+!app/lambda/deploy/.python-version
+!app/lambda/deploy/requirements.txt
+infra/terraform/archive
