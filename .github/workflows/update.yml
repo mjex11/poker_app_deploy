@@ -31,7 +31,7 @@ jobs:
         \cp -f ${{ steps.render-webapp.outputs.task-definition }} task-definition.json
         git add task-definition.json
         git commit -m "Update ECS task definition"
-        git push origin update-task-definition
+        git push
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
