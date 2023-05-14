@@ -34,8 +34,9 @@ jobs:
         git push origin update-task-definition-${{ github.event.client_payload.image_tag }}
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v3
+      uses: peter-evans/create-pull-request@v5
       with:
         title: Update ECS task definition
         body: This PR updates the ECS task definition with the latest image.
+        branch: update-task-definition-${{ github.event.client_payload.image_tag }}
         delete-branch: true
