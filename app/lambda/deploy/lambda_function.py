@@ -20,8 +20,9 @@ def lambda_handler(event, context):
     token = os.getenv('GITHUB_TOKEN')
 
     headers = {
-        'Accept': 'application/vnd.github.everest-preview+json',
-        'Authorization': f'token {token}',
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {token}',
+        'X-GitHub-Api-Version': '2022-11-28'
     }
 
     data = {

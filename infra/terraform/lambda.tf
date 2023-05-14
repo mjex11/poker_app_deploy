@@ -58,7 +58,7 @@ resource "aws_lambda_function" "dispatch_github_event" {
     variables = {
       GITHUB_OWNER = var.github_owner
       GITHUB_REPO  = var.github_repo
-      github_token = var.github_token
+      GITHUB_TOKEN = var.github_token
     }
   }
 }
