@@ -40,4 +40,4 @@ jobs:
         body: This PR updates the ECS task definition with the latest image.
         base: main
         branch: update-task-definition-${{ github.event.client_payload.image_tag }}
-        delete-branch: true
+        delete-branch: false
