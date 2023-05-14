@@ -22,7 +22,7 @@ jobs:
 
     - name: Checkout new branch
       run: |
-        git checkout -b update-task-definition-${{ github.event.client_payload.image_tag }}
+        git checkout -b update-task-definition-${{ github.event.client_payload.image_tag }} main
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
@@ -38,5 +38,6 @@ jobs:
       with:
         title: Update ECS task definition
         body: This PR updates the ECS task definition with the latest image.
+        base: main
         branch: update-task-definition-${{ github.event.client_payload.image_tag }}
         delete-branch: true
