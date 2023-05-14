@@ -1,0 +1,40 @@
+name: Update ECS Task Definition
+
+on:
+  repository_dispatch:
+    types: ECR Push
+
+jobs:
+  update-task-definition:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Render Amazon ECS task definition
+      id: render-webapp
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      with:
+        task-definition: task-definition.json
+        container-name: one-ecs
+        image: ${{ github.event.client_payload.image_tag }}
+
+    - name: Checkout new branch
+      run: |
+        git checkout -b update-task-definition
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+    - name: Commit and push changes
+      run: |
+        git add task-definition.json
+        git commit -m "Update ECS task definition"
+        git push origin update-task-definition
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        title: Update ECS task definition
+        body: This PR updates the ECS task definition with the latest image.
+        delete-branch: true

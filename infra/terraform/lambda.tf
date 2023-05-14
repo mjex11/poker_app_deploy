@@ -78,7 +78,7 @@ resource "aws_cloudwatch_event_rule" "ecr_image_push" {
   "detail": {
     "action-type": ["PUSH"],
     "result": ["SUCCESS"],
-    "repository-name": ["${local.ecr_repository_name}}"]
+    "repository-name": ["${local.ecr_repository_name}"]
   }
 }
 PATTERN
@@ -88,4 +88,11 @@ resource "aws_cloudwatch_event_target" "send_to_lambda" {
   rule      = aws_cloudwatch_event_rule.ecr_image_push.name
   target_id = "SendToLambda"
   arn       = aws_lambda_function.dispatch_github_event.arn
+}
+
+resource "aws_lambda_permission" "allow_cloudwatch" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.dispatch_github_event.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.ecr_image_push.arn
 }

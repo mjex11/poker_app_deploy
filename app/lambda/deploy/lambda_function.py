@@ -10,7 +10,7 @@ logger.setLevel(logging.INFO)
 def lambda_handler(event, context):
     # Error handling for missing imageTag
     try:
-        image_tag = event['detail']['responseElements']['imageTag']
+        image_tag = event['detail']['image-tag']
     except KeyError:
         logger.error("Missing imageTag in event data.")
         raise
