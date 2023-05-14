@@ -1,7 +1,7 @@
 name: Update ECS Task Definition
 
 on:
-  repository_dispatch:
+  repository_dispatch:
     types: ECR Push
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
 
     - name: Checkout new branch
       run: |
-        git checkout -b update-task-definition
+        git checkout -b update-task-definition-${{ github.event.client_payload.image_tag }}
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
