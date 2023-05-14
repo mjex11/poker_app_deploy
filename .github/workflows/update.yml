@@ -28,6 +28,7 @@ jobs:
 
     - name: Commit and push changes
       run: |
+        \cp -f ${{ steps.render-webapp.outputs.task-definition }} task-definition.json
         git add task-definition.json
         git commit -m "Update ECS task definition"
         git push origin update-task-definition
