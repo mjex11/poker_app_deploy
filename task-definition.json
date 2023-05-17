@@ -32,7 +32,7 @@
     },
     {
       "name": "one-ecs",
-      "image": "b327c048903c7eb7a14ee73ffc1406a871d0af99",
+      "image": "v1.0.2",
       "cpu": 256,
       "memory": 512,
       "memoryReservation": 100,
