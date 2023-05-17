@@ -37,12 +37,3 @@ jobs:
       run: gh pr create --base main --head update-task-definition-${{ github.event.client_payload.image_tag }} --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    # - name: Create Pull Request
-    #   uses: peter-evans/create-pull-request@v5
-    #   with:
-    #     title: Update ECS task definition
-    #     body: This PR updates the ECS task definition with the latest image.
-    #     base: main
-    #     branch: update-task-definition-${{ github.event.client_payload.image_tag }}
-    #     delete-branch: true
